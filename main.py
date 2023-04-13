@@ -4,9 +4,11 @@
 # write to the temp json
 # run the sim cli
 import subprocess, json
-process = subprocess.run(['/Users/paradigm72/Code/paradigm72-wotlk/wowsimcli-amd64-darwin',
+# pwdprocess = subprocess.run(['pwd'], stdout=subprocess.PIPE)
+# print(pwdprocess.stdout)
+process = subprocess.run(['../paradigm72-wotlk/wowsimcli-amd64-darwin',
                           '-input',
-                          '/Users/paradigm72/Code/paradigm72-wotlk/eleHaste/P2Ele.json',
+                          './inputs/P2PresetBase.json',
                           '--replace='''],
                          stderr=subprocess.PIPE,
                          stdout=subprocess.PIPE,
