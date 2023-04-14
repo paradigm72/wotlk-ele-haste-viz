@@ -1,14 +1,20 @@
+import subprocess, json
+# for each gear set,
 # for each haste value,
 # load the request json
+baseInput = open('./inputs/P2PresetBase.json')
+baseInputDict = json.load(baseInput)
 # modify its bonus haste
+iterInputDict = baseInputDict
+iterInputDict['raid']['parties'][0]['players'][0]['bonusStats']['stats'][9] = 1000
 # write to the temp json
+iterInputJSON = json.dumps(iterInputDict, indent=0)
+with open("./inputs/CLIInput.json", "w") as outfile:
+    outfile.write(iterInputJSON)
 # run the sim cli
-import subprocess, json
-# pwdprocess = subprocess.run(['pwd'], stdout=subprocess.PIPE)
-# print(pwdprocess.stdout)
 process = subprocess.run(['../paradigm72-wotlk/wowsimcli-amd64-darwin',
                           '-input',
-                          './inputs/P2PresetBase.json',
+                          './inputs/CLIInput.json',
                           '--replace='''],
                          stderr=subprocess.PIPE,
                          stdout=subprocess.PIPE,
