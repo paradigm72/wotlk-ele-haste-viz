@@ -21,12 +21,28 @@ for haste in range(-1000, 1000):
                          stderr=subprocess.PIPE,
                          stdout=subprocess.PIPE,
                          universal_newlines=True)
-    # time.sleep(2)
+    #
     # get the output
     output = process.stderr  # why on stderr? :)
     # parse the json into a python dictionary
-    outputDict = json.loads(output)
+    try:
+        outputDict = json.loads(output)
+    except ValueError as e:
+        # print("Parse error (1st pass)")
+        try:
+            secondProcess = subprocess.run(['../paradigm72-wotlk/wowsimcli-amd64-darwin',
+                                      '-input',
+                                      './inputs/CLIInput.json',
+                                      '--replace='''],
+                                     stderr=subprocess.PIPE,
+                                     stdout=subprocess.PIPE,
+                                     universal_newlines=True)
+            output = secondProcess.stderr
+            outputDict = json.loads(output)
+        except ValueError as e:
+            # print("Retry failed (2nd pass)")
+            continue
     # extract the DPS value
     dps = outputDict['raidMetrics']['dps']['avg']
     # store the DPS value in the output dictionary
-    print(dps)
+    print(haste,",",dps)
