@@ -1,4 +1,5 @@
-import subprocess, json, time
+import subprocess, json
+dpsOutputList = []
 # for each gear set,
 for phase in range(0, 3):
     # load the request json
@@ -28,7 +29,7 @@ for phase in range(0, 3):
         output = process.stderr  # why on stderr? :)
         # parse the json into a python dictionary
         try:
-            outputDict = json.loads(output)
+            simOutputDict = json.loads(output)
         except ValueError as e:
             # print("Parse error (1st pass)")
             try:
@@ -40,12 +41,19 @@ for phase in range(0, 3):
                                          stdout=subprocess.PIPE,
                                          universal_newlines=True)
                 output = secondProcess.stderr
-                outputDict = json.loads(output)
+                simOutputDict = json.loads(output)
             except ValueError as e:
                 # print("Retry failed (2nd pass)")
                 continue
         # extract the DPS value
-        dps = outputDict['raidMetrics']['dps']['avg']
+        dps = simOutputDict['raidMetrics']['dps']['avg']
         # store the DPS value in the output dictionary
         outputLine = str(phase) + "," + str(haste) + "," + str(dps)
+        dpsOutputList.append(outputLine)
+        # debug printing
         print(outputLine)
+
+# json output
+with open("./DPSChart.json", "w") as outfile:
+    outfile.writelines(dpsOutputList)
+    outfile.close()
