@@ -6,3 +6,4 @@
 .idea/vcs.xml
 .idea/wotlk-ele-haste-viz.iml
 inputs/CLIInput.json
+.DS_Store
