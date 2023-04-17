@@ -1,7 +1,7 @@
 import subprocess, json
 dpsOutputList = []
 # for each gear set,
-for phase in range(0, 3):
+for phase in range(0, 4):
     # load the request json
     filename = './inputs/P' + str(phase) + 'PresetBase.json'
     baseInput = open(filename)
@@ -47,13 +47,16 @@ for phase in range(0, 3):
                 continue
         # extract the DPS value
         dps = simOutputDict['raidMetrics']['dps']['avg']
-        # store the DPS value in the output dictionary
+        # compose the DPS value in CSV format
         outputLine = str(phase) + "," + str(haste) + "," + str(dps)
-        dpsOutputList.append(outputLine)
         # debug printing
         print(outputLine)
+        # store the DPS value in the list
+        outputLine += "\n"
+        dpsOutputList.append(outputLine)
+
 
 # json output
-with open("./DPSChart.json", "w") as outfile:
+with open("./DPSChart.csv", "w") as outfile:
     outfile.writelines(dpsOutputList)
     outfile.close()
