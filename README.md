@@ -5,4 +5,4 @@
  
  The intent is to show significant variation in the value of Haste, to an extent that significantly impacts the relative value of pieces of gear.
   
-![Ele Haste Vis - Phase 2 Zoom Way In](https://user-images.githubusercontent.com/1129528/232869969-623f3a00-6367-423f-8ff0-e258d71365c8.png)
+<img width="1076" alt="Ele Haste - Phase 2 Zoom with Variations" src="https://user-images.githubusercontent.com/1129528/234141058-a41592d6-e018-44e8-bdc8-c8b1bf0c7d68.png">
